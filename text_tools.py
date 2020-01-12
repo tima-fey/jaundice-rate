@@ -1,6 +1,8 @@
-import pymorphy2
 import string
 
+import pymorphy2
+
+from func_timeout import func_set_timeout
 
 def _clean_word(word):
     word = word.replace('«', '').replace('»', '').replace('…', '')
@@ -8,7 +10,7 @@ def _clean_word(word):
     word = word.strip(string.punctuation)
     return word
 
-
+@func_set_timeout(2)
 def split_by_words(morph, text):
     """Учитывает знаки пунктуации, регистр и словоформы, выкидывает предлоги."""
     words = []
@@ -21,8 +23,6 @@ def split_by_words(morph, text):
 
 
 def test_split_by_words():
-    # Экземпляры MorphAnalyzer занимают 10-15Мб RAM т.к. загружают в память много данных
-    # Старайтесь организовать свой код так, чтоб создавать экземпляр MorphAnalyzer заранее и в единственном числе
     morph = pymorphy2.MorphAnalyzer()
 
     assert split_by_words(morph, 'Во-первых, он хочет, чтобы') == ['во-первых', 'хотеть', 'чтобы']

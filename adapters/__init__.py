@@ -4,5 +4,5 @@ from .exceptions import ArticleNotFound
 __all__ = ['SANITIZERS', 'ArticleNotFound']
 
 SANITIZERS = {
-    'inosmi_ru': inosmi_ru.sanitize,
+    'inosmi.ru': inosmi_ru.sanitize,
 }
